@@ -15,7 +15,18 @@ services:
         ports:
             - "127.0.0.1:35100:6379"
         command: redis-server --save ""
+    elasticsearch:
+        image: elasticsearch:7.14.0
+        environment:
+            - discovery.type=single-node
+            - ES_JAVA_OPTS=-Xms512m -Xmx512m
+        volumes:
+            - elasticsearch-data:/usr/share/elasticsearch/data        
+        ports:
+            - 9200:9200
 
 volumes:
     postgres-data:
+        driver: local
+    elasticsearch-data:
         driver: local
